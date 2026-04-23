@@ -1,0 +1,12 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "build": "mkdir -p dist && cp *.html style.css app.js dist/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
