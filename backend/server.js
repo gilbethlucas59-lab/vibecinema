@@ -6,15 +6,23 @@ require("dotenv").config();
 
 const app = express();
 
-app.use(cors());
+// Update CORS to allow your Netlify site
+app.use(cors({
+  origin: ["https://djneptune0056.netlify.app", "http://localhost:5173"]
+}));
+
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-mongoose.connect("mongodb://127.0.0.1:27017/vibecinema")
+// Use the Environment Variable for MongoDB, or fallback to local for testing
+const mongoURI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/vibecinema";
+
+mongoose.connect(mongoURI)
   .then(() => console.log("✅ VibeCinema DB Connected"))
   .catch(err => console.error("❌ DB Error:", err));
 
-// LINK ROUTES
 app.use("/api/movies", require("./routes/movies"));
 
-app.listen(5000, () => console.log("🚀 Server running on port 5000"));
+// Render uses a dynamic port, so we must use process.env.PORT
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
