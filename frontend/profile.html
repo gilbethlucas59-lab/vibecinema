@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - VibeCinema</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #000;
+            padding: 15px 20px;
+            border-bottom: 2px solid #e50914;
+        }
+
+        .search-box {
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+            background: #333;
+            color: white;
+        }
+
+        .profile-box {
+            text-align: center;
+        }
+
+        .stats {
+            margin-top: 10px;
+            color: #bbb;
+        }
+
+        .movie-card {
+            position: relative;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: red;
+            border: none;
+            padding: 5px 8px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div id="sidebar-container"></div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+
+    <!-- TOP BAR -->
+    <div class="top-nav">
+        <span>👤 My Profile</span>
+
+        <input type="text" placeholder="Search your movies..." class="search-box" id="searchInput">
+    </div>
+
+    <div class="container">
+
+        <!-- PROFILE -->
+        <div class="profile-box" id="profileBox"></div>
+
+        <div class="stats" id="stats"></div>
+
+        <!-- MOVIES -->
+        <h2>🎥 My Uploaded Movies</h2>
+        <div class="movies" id="moviesContainer"></div>
+
+    </div>
+
+</div>
+
+<script src="sidebar.js"></script>
+
+<script>
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!user) {
+        alert("Please login first");
+        window.location.href = "login.html";
+    }
+
+    const profileBox = document.getElementById("profileBox");
+    const stats = document.getElementById("stats");
+
+    profileBox.innerHTML = `
+        <img src="${user.profilePic || 'https://via.placeholder.com/120'}">
+        <h2>${user.username}</h2>
+        <p>${user.email}</p>
+    `;
+
+    let allMovies = [];
+
+    fetch("http://localhost:5000/api/movies")
+    .then(res => res.json())
+    .then(data => {
+        const container = document.getElementById("moviesContainer");
+
+        const myMovies = data.filter(movie =>
+            movie.uploadedBy && movie.uploadedBy._id === user._id
+        );
+
+        allMovies = myMovies;
+
+        stats.innerHTML = `🎬 Total Uploads: ${myMovies.length}`;
+
+        if (myMovies.length === 0) {
+            container.innerHTML = "<p>No movies uploaded yet.</p>";
+            return;
+        }
+
+        displayMovies(myMovies);
+    });
+
+    function displayMovies(movies) {
+        const container = document.getElementById("moviesContainer");
+        container.innerHTML = "";
+
+        movies.forEach(movie => {
+            container.innerHTML += `
+                <div class="movie-card">
+                    <button class="delete-btn">🗑</button>
+                    <h3>${movie.title}</h3>
+                    <p>🌍 ${movie.country}</p>
+                    <video controls>
+                        <source src="http://localhost:5000/${movie.videoUrl}">
+                    </video>
+                </div>
+            `;
+        });
+    }
+
+    // 🔍 Search filter
+    document.getElementById("searchInput").addEventListener("input", function() {
+        const value = this.value.toLowerCase();
+
+        const filtered = allMovies.filter(movie =>
+            movie.title.toLowerCase().includes(value)
+        );
+
+        displayMovies(filtered);
+    });
+</script>
+
+</body>
+</html>

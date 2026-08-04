@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VibeCinema - Upload Movie</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { background: #141414; color: white; font-family: Arial; }
+        .container { max-width: 500px; margin: 50px auto; padding: 20px; background: #1f1f1f; border-radius: 8px; }
+        input, textarea { width: 100%; margin: 10px 0; padding: 10px; background: #333; border: none; color: white; }
+        button { width: 100%; padding: 10px; background: #e50914; border: none; color: white; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Upload New Movie</h2>
+        <form id="uploadForm">
+            <input type="text" name="title" placeholder="Movie Title" required>
+            <textarea name="description" placeholder="Description"></textarea>
+            <input type="text" name="genre" placeholder="Genre">
+            <input type="file" name="videoFile">
+            <button type="submit" id="postBtn">Post Movie</button>
+        </form>
+        <p><a href="index.html" style="color: #aaa;">Back to Home</a></p>
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('postBtn');
+            btn.innerText = "Connecting to Backend...";
+            
+            const formData = new FormData(e.target);
+            // We manually build the object to ensure no format errors
+            const data = {
+                title: formData.get('title'),
+                description: formData.get('description'),
+                genre: formData.get('genre'),
+                videoPath: formData.get('videoFile') ? formData.get('videoFile').name : "default.mp4"
+            };
+
+            try {
+                // FORCING PORT 5000 - This avoids the "Route not found" on 3000
+                const response = await fetch('http://localhost:5000/api/movies', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    alert("Success! Movie added to VibeCinema.");
+                    window.location.href = "index.html";
+                } else {
+                    alert("Server Error: " + response.status);
+                }
+            } catch (error) {
+                alert("Connection Refused! Is your backend running on port 5000?");
+            } finally {
+                btn.innerText = "Post Movie";
+            }
+        });
+    </script>
+</body>
+</html>

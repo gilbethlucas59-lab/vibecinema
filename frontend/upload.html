@@ -1,52 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>VibeCinema - Upload Movie</title>
+    <meta charset="UTF-8">
+    <title>VibeCinema - Upload</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav>
-        <h1>VibeCinema</h1>
-        <a href="index.html">Home</a>
-    </nav>
-
-    <div class="container">
-        <h2>Upload New Movie</h2>
-        <form id="uploadForm">
-            <input type="text" id="title" placeholder="Movie Title" required><br><br>
-            <textarea id="description" placeholder="Movie Description"></textarea><br><br>
-            
-            <label>Origin Country:</label>
-            <select id="country">
-                <option value="Tanzania">Tanzania</option>
-                <option value="Nigeria">Nigeria</option>
-                <option value="USA">USA</option>
-                <option value="South Africa">South Africa</option>
-            </select><br><br>
-
-            <input type="file" id="videoFile" accept="video/*" required><br><br>
-            <button type="submit">Post Movie</button>
-        </form>
+    <div class="sidebar" id="sidebar">
+        <div class="logo">VibeCinema</div>
+        <nav class="nav-links">
+            <a href="index.html" class="nav-item">🏠 Home</a>
+            <a href="#" class="nav-item">🔥 Trending</a>
+            <a href="upload.html" class="nav-item active">📤 Upload</a>
+            <a href="#" class="nav-item">👤 Profile</a>
+        </nav>
     </div>
 
-    <script>
-        const form = document.getElementById('uploadForm');
-        form.onsubmit = async (e) => {
-            e.preventDefault();
-            const formData = new FormData();
-            formData.append('title', document.getElementById('title').value);
-            formData.append('description', document.getElementById('description').value);
-            formData.append('country', document.getElementById('country').value);
-            formData.append('video', document.getElementById('videoFile').files[0]);
+    <div class="main-content">
+        <header>
+            <button id="toggle-sidebar">☰</button>
+            <div class="user-info">Welcome, Ali</div>
+        </header>
 
-            const response = await fetch('http://localhost:5000/api/movies/upload', {
-                method: 'POST',
-                body: formData
-            });
+        <div class="upload-card">
+            <h2>Post New Media</h2>
+            <form id="upload-form">
+                <div class="form-group">
+                    <label>Media Title</label>
+                    <input type="text" id="title" placeholder="e.g., Prison Break S1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Media Type</label>
+                    <select id="type">
+                        <option value="video">🎥 Video (MP4)</option>
+                        <option value="audio">🎵 Audio (MP3)</option>
+                    </select>
+                </div>
 
-            const result = await response.json();
-            alert(result.message);
-        };
-    </script>
+                <div class="form-group">
+                    <label>Select File</label>
+                    <input type="file" id="media-file" name="media" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="description" placeholder="What is this about?"></textarea>
+                </div>
+
+                <button type="submit" class="post-btn">POST TO GALLERY</button>
+            </form>
+        </div>
+    </div>
+    <script src="upload.js"></script>
 </body>
 </html>
