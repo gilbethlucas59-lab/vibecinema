@@ -90,12 +90,12 @@ async function checkAuth() {
 function loadView(view, category = '', mediaId = null) {
     const container = document.getElementById('main-container');
     switch(view) {
-        case 'home': renderMedia('all', ''); break;
-        case 'videos': renderMedia('video', ''); break;
-        case 'audios': renderMedia('audio', ''); break;
-        case 'photos': renderMedia('photo', ''); break;
-        case 'games': renderMedia('game', ''); break;
-        case 'category': renderMedia('all', category); break;
+        case 'home': rendermedia('all', ''); break;
+        case 'videos': rendermedia('video', ''); break;
+        case 'audios': rendermedia('audio', ''); break;
+        case 'photos': rendermedia('photo', ''); break;
+        case 'games': rendermedia('game', ''); break;
+        case 'category': rendermedia('all', category); break;
         case 'most-watched': renderMostWatched(); break;
         case 'trending': renderTrending(); break;
         case 'watch-later': renderWatchLater(); break;
@@ -245,11 +245,11 @@ async function renderAdminPanel() {
             </div>`;
         });
         html += `</div>`;
-        html += `<h3 style="color:#aaa;">Media (${media.length})</h3><div style="background:#1a1a1a; padding:15px; border-radius:8px;">`;
+        html += `<h3 style="color:#aaa;">media (${media.length})</h3><div style="background:#1a1a1a; padding:15px; border-radius:8px;">`;
         media.forEach(m => {
             html += `<div style="display:flex; justify-content:space-between; border-bottom:1px solid #333; padding:8px 0;">
                 <span>${m.title} (${m.type})</span>
-                <button onclick="deleteMedia('${m._id}')" style="background:#e50914; border:none; color:#fff; padding:2px 10px; border-radius:4px; cursor:pointer;">Delete</button>
+                <button onclick="deletemedia('${m._id}')" style="background:#e50914; border:none; color:#fff; padding:2px 10px; border-radius:4px; cursor:pointer;">Delete</button>
             </div>`;
         });
         html += `</div>`;
@@ -266,10 +266,10 @@ async function deleteUser(id) {
     renderAdminPanel();
 }
 
-async function deleteMedia(id) {
+async function deletemedia(id) {
     if(!confirm('Delete this media?')) return;
     await fetch('/api/admin/media/' + id, { method:'DELETE', credentials:'include' });
-    notyf.success('Media deleted');
+    notyf.success('media deleted');
     renderAdminPanel();
 }
 
@@ -299,7 +299,7 @@ async function removeWatchLater(id) {
     renderWatchLater();
 }
 
-async function renderMedia(type = 'all', category = '') {
+async function rendermedia(type = 'all', category = '') {
     const container = document.getElementById('main-container');
     container.innerHTML = `<p style="text-align:center; color:#888;">Loading...</p>`;
     try {
@@ -319,7 +319,7 @@ async function renderMedia(type = 'all', category = '') {
             const wlData = await wlRes.json();
             savedIds = wlData.map(item => item._id);
         }
-        let title = '🎬 All Media';
+        let title = '🎬 All media';
         if (type === 'video') title = '🎬 Videos';
         else if (type === 'audio') title = '🎵 Audio';
         else if (type === 'photo') title = '🖼️ Photos';
@@ -378,7 +378,7 @@ function buildListItem(m, isWatchLater = false, isSaved = false) {
                         `<button onclick="event.stopPropagation(); toggleWatchLater('${m._id}', this)" class="${isSaved ? 'starred' : ''}">${isSaved ? '⭐' : '☆'} Save</button>`
                     }
                     <button onclick="event.stopPropagation(); loadView('watch', '', '${m._id}')">💬 Comment</button>
-                    <button onclick="event.stopPropagation(); shareMedia('${m._id}')">🔗 Share</button>
+                    <button onclick="event.stopPropagation(); sharemedia('${m._id}')">🔗 Share</button>
                 </div>
             </div>
         </div>
@@ -419,7 +419,7 @@ async function toggleLike(id, btn) {
     }
 }
 
-function shareMedia(id) {
+function sharemedia(id) {
     const url = window.location.origin + '/?watch=' + id;
     navigator.clipboard.writeText(url).then(() => {
         notyf.success('Link copied to clipboard!');
@@ -571,12 +571,12 @@ function renderUpload() {
             <select id="up-category"><option value="">No Category</option><option value="Education">Education</option><option value="Entertainment">Entertainment</option><option value="Documentary">Documentary</option><option value="Music">Music</option><option value="Gaming">Gaming</option></select>
             <textarea id="up-desc" placeholder="Description" rows="3"></textarea>
             <input type="file" id="up-file">
-            <button onclick="uploadMedia()">Upload</button>
+            <button onclick="uploadmedia()">Upload</button>
         </div>
     `;
 }
 
-async function uploadMedia() {
+async function uploadmedia() {
     const title = document.getElementById('up-title').value.trim();
     const type = document.getElementById('up-type').value;
     const category = document.getElementById('up-category').value;
