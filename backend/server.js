@@ -26,7 +26,7 @@ const Comment = mongoose.model('Comment', new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
 }));
 
-const Media = mongoose.model('Media', new mongoose.Schema({
+const Media = mongoose.model('media',, new mongoose.Schema({
     title: String, path: String, type: String, category: String, description: String,
     views: { type: Number, default: 0 },
     likes: { type: Number, default: 0 },
