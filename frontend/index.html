@@ -5,64 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VibeCinema</title>
     <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+    <link rel="stylesheet" href="https://cdn.js.delivr.net/notyf@3/notyf.min.css">
 </head>
 <body>
     <div class="app-container">
         <div class="sidebar-wrapper" id="sidebar-wrapper">
             <div class="sidebar-top-bar">
-                <button id="toggle-sidebar" class="sidebar-toggle-btn">☰</button>
+                <button id="toggle-sidebar" class="sidebar-toggle-btn">�</button>
                 <div class="logo">
-                    <img src="/logo.png" style="height:40px; width:auto; object-fit:contain; max-width:100%; margin-right:8px;" alt="Logo"> VibeCinema
+                    <span class="logo-icon">🙬</span> <span id="logo-text">VibeCinema</span>
                 </div>
             </div>
-
             <div class="sliding-menu-container" id="sliding-menu">
                 <nav class="nav-links">
                     <div class="nav-item language-selector">
-                        <span>🌐</span>
+                        <span>🙐</span>
                         <select id="language-select" onchange="changeLanguage(this.value)" style="background:transparent; border:none; color:#aaa; font-size:1rem; cursor:pointer; outline:none; width:100%;">
                             <option value="en">ENGLISH</option>
                             <option value="sw">KISWAHILI</option>
-                            <option value="fr">FRANÇAIS</option>
-                            <option value="es">ESPAÑOL</option>
-                            <option value="ar">العربية</option>
-                            <option value="hi">हिन्दी</option>
+                            <option value="fr">FRANÁCIS</option>
+                            <option value="es">ESPAÏOL</option>
+                            <option value="ar">إر الدة</option>
+                            <option value="hi">प्रुांघ</option>
                         </select>
                     </div>
-
-                    <a href="#" class="nav-item" onclick="loadView('home')"><span class="t-home">🏠 Home</span></a>
-                    
+                    <a href="#" class="nav-item" onclick="loadView('home')"><span class="t-home">🍠 Home</span></a>
                     <div class="library-container">
-                        <div class="nav-item library-header"><span class="t-library">📚 Library</span></div>
+                        <div class="nav-item library-header"><span class="t-library">💔 Library</span></div>
                         <div class="library-items">
-                            <a href="#" class="nav-item sub-item" onclick="loadView('videos')"><span class="t-videos">▶️ All Videos</span></a>
-                            <a href="#" class="nav-item sub-item" onclick="loadView('audios')"><span class="t-audios">🎵 Audio</span></a>
-                            <a href="#" class="nav-item sub-item" onclick="loadView('photos')"><span class="t-photos">🖼️ Photos</span></a>
-                            <a href="#" class="nav-item sub-item" onclick="loadView('games')"><span class="t-games">🎮 Games</span></a>
+                            <a href="#" class="nav-item sub-item" onclick="loadView('videos')"><span class="t-videos">➾‍ All Videos</span></a>
+                            <a href="#" class="nav-item sub-item" onclick="loadView('audios')"><span class="t-audios">🎥 Audio</span></a>
+                            <a href="#" class="nav-item sub-item" onclick="loadView('photos')"><span class="t-photos">🏹 Photos</span></a>
+                            <a href="#" class="nav-item sub-item" onclick="loadView('games')"><span class="t-games">🨎 Games</span></a>
                         </div>
                     </div>
-
                     <div class="library-container" id="categories-container" style="display:none;">
-                        <div class="nav-item library-header"><span class="t-categories">📂 Categories</span></div>
+                        <div class="nav-item library-header"><span class="t-categories">💃 Categories</span></div>
                         <div class="library-items" id="categories-list">
                         </div>
                     </div>
-
-                    <a href="#" class="nav-item" onclick="loadView('most-watched')"><span class="t-mostwatched">👑 Most Watched</span></a>
-                    <a href="#" class="nav-item" onclick="loadView('trending')"><span class="t-trending">🔥 Trending</span></a>
-                    <a href="#" class="nav-item" onclick="loadView('upload')"><span class="t-upload">📤 Upload</span></a>
-                    <a href="#" class="nav-item" id="watch-later-link" style="display:none;" onclick="loadView('watch-later')"><span class="t-watchlater">⭐ Watch Later</span></a>
-                    <a href="#" class="nav-item" id="admin-link" style="display:none;" onclick="loadView('admin')"><span class="t-admin">🛡️ Admin Panel</span></a>
-                    
+                    <a href="#" class="nav-item" onclick="loadView('most-watched')"><span class="t-mostwatched">🐩 Most Watched</span></a>
+                    <a href="#" class="nav-item" onclick="loadView('trending')"><span class="t-trending">┍ Trending</span></a>
+                    <a href="#" class="nav-item" onclick="loadView('upload')"><span class="t-upload">🄥 Upload</span></a>
+                    <a href="#" class="nav-item" id="watch-later-link" style="display:none;" onclick="loadView('watch-later')"><span class="t-watchlater">❨ Watch Later</span></a>
+                    <a href="#" class="nav-item" id="admin-link" style="display:none;" onclick="loadView('admin')"><span class="t-admin">🮠 Admin Panel</span></a>
                     <hr style="border:0;border-top:1px solid #333;margin:10px 0;">
-                    <a href="#" class="nav-item" id="login-link" onclick="loadView('login')"><span class="t-login">🔑 Login</span></a>
-                    <a href="#" class="nav-item" id="register-link" onclick="loadView('register')"><span class="t-register">📝 Register</span></a>
-                    <a href="#" class="nav-item" id="logout-link" style="display:none;" onclick="logoutUser()"><span class="t-logout">🚪 Logout</span></a>
+                    <a href="#" class="nav-item" id="login-link" onclick="loadView('login')"><span class="t-login">���� Login</span></a>
+                    <a href="#" class="nav-item" id="register-link" onclick="loadView('register')"><span class="t-register">🐥 Register</span></a>
+                    <a href="#" class="nav-item" id="logout-link" style="display:none;" onclick="logoutUser()"><span class="t-logout">🤪 Logout</span></a>
                 </nav>
             </div>
         </div>
-
         <div class="main-content">
             <header>
                 <div class="left-header" style="display:flex; align-items:center;">
@@ -72,42 +65,39 @@
                 </div>
                 <div class="user-area">
                     <div id="notification-bell" style="position:relative; cursor:pointer; display:none; margin-right:10px;" onclick="toggleNotificationDropdown()">
-                        🔔<span id="notif-badge" style="position:absolute; top:-5px; right:-8px; background:#e50914; color:#fff; border-radius:50%; padding:2px 6px; font-size:10px; font-weight:bold;">0</span>
+                        <span id="notif-badge" style="position:absolute; top:-5px; right:-8px; background:#e50914; color:#fff; border-radius:50%; padding:2px 6px; font-size:10px; font-weight:bold;">0</span>
                     </div>
                     <div class="user-info" id="user-welcome"><span class="t-guest">Guest</span></div>
                     <div class="user-avatar" id="user-avatar" onclick="loadView('profile')" style="cursor:pointer;">G</div>
                 </div>
             </header>
-            
             <div id="main-container" style="padding: 20px;"></div>
-
             <hr style="border: 1px solid #222; margin: 80px 0 30px 0;">
             <section class="info-section">
                 <div class="info-grid">
                     <div class="info-box">
-                        <h3>📚 <span class="t-mission">Educational Mission</span></h3>
+                        <h3>🌚<span class="t-mission">Educational Mission</span></h3>
                         <p class="t-mission-text">VibeCinema showcases the "mental chess" behind software development, cybersecurity, and media production.</p>
                     </div>
                     <div class="info-box">
-                        <h3>🛠️ <span class="t-built">Built on Neptune</span></h3>
+                        <h3>🏠<span class="t-built">Built on Neptune</span></h3>
                         <p class="t-built-text">Developed using <strong>Node.js, Express, and MongoDB</strong> within Kali Linux.</p>
                     </div>
                     <div class="info-box">
-                        <h3>📞 <span class="t-contact">Contact</span></h3>
-                        <p>📞 +255 795 701 145</p>
-                        <a href="https://wa.me/255624701145" class="whatsapp-btn">💬 WhatsApp</a>
+                        <h3>🐏<span class="t-contact">Contact</span></h3>
+                        <p>🐍 +255 795 701 145</p>
+                        <a href="https://wa.me/255624701145" target="_blank" class="whatsapp-btn">✨ WhatsApp</a>
                     </div>
                     <div class="info-box" style="text-align:center;">
-                        <h3>📱 QR</h3>
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/255624701145" style="width:120px; border-radius:8px; background:#fff; padding:4px;">
+                        <h3>‌ (qrcode)</h3>
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/255624701145" style="width:140px; border-radius:8px; background:#fff; padding:4px;">
                     </div>
                 </div>
                 <p style="text-align:center;color:#444;margin-top:40px;font-size:0.8rem;">© 2026 VIBECINEMA | POWERED BY NEPTUNE</p>
             </section>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    <script src="https://cdn.js.delivr.net/notyf@3/notyf.min.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
-<script src='app.js'></script>
