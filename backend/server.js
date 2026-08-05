@@ -18,7 +18,6 @@ app.use(session({
     cookie: { secure: false }
 }));
 
-mongoose.connect('mongodb+srv://gilbethlucas59_db_user:p4PR2SYAEo77pq8S@vibecinemacluster.h4kfnxp.mongodb.net/?appName=VibeCinemaCluster')
     .then(() => console.log('✅ MongoDB Atlas Connected'))
     .catch(err => console.error('❌ MongoDB Error:', err));
 
@@ -277,3 +276,4 @@ app.use(express.static(frontendPath));
 app.get('*', (req, res) => res.sendFile(path.join(frontendPath, 'index.html')));
 
 app.listen(5000, () => console.log('🎬 VibeCinema Backend Active on Port 5000'));
+mongoose.connect(process.env.MONGO_URI || 'mongodb+srv://gilbethlucas59_db_user:p4PR2SYAEo77pq8S@vibecinemacluster.h4kfnxp.mongodb.net/?appName=VibeCinemaCluster');
