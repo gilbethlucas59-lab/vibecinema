@@ -1,1 +1,1 @@
-{ "outputDirectory": "frontend", "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }] }
+{ "outputDirectory": "frontend", "buildCommand": null, "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }] }
