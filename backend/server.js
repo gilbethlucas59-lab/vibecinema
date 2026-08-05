@@ -9,7 +9,7 @@ const session = require('express-session');
 
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:5000', credentials: true }));
+app.use(cors({ origin: 'https://vibecinema-backend.onrender.com', credentials: true }));
 app.use(express.json());
 app.use(session({
     secret: 'vibecinema_secret_key_2026',
@@ -155,7 +155,7 @@ app.post('/api/upload', isAuthenticated, upload.single('media'), async (req, res
         if (!req.file) return res.status(400).json({ message: 'No file' });
         const { title, type, category, description } = req.body; 
         const newMedia = new Media({
-            title, path: 'http://localhost:5000/uploads/' + req.file.filename,
+            title, path: 'https://vibecinema-backend.onrender.com/uploads/' + req.file.filename,
             type, category, description
         });
         await newMedia.save();
